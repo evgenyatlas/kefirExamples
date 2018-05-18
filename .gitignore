@@ -18,3 +18,4 @@ npm-debug.log
 **/.DS_Store
 .DS_Store
 counter/.DS_Store
+.gitignore
