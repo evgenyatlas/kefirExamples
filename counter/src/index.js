@@ -1,5 +1,4 @@
 import K from 'kefir'
-import { isNumber } from 'util';
 
 //Dom elem
 const root = document.querySelector('#root')
