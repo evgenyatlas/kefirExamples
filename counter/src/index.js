@@ -5,11 +5,10 @@ import { isNumber } from 'util';
 const root = document.querySelector('#root')
 const inputNumber = document.querySelector('.input-add')
 
-const inc$ = K.fromEvents(document.body, "click").filter(({ currentTarget }) => currentTarget.matches('.inc')).map(_ => 1)
-const dec$ = K.fromEvents(document.body, "click").filter(({ currentTarget }) => currentTarget.matches('.dec')).map(_ => -1)
+const inc$ = K.fromEvents(document.body, "click").filter(({ target }) => target.matches('.inc')).map(_ => 1)
+const dec$ = K.fromEvents(document.body, "click").filter(({ target }) => target.matches('.dec')).map(_ => -1)
 const input$ = K.fromEvents(document.body, "click")
-    .filter(({ target }) => target.matches('.add'))
-    .filter(_ => isFinite(inputNumber.value)) //Сheck for a number
+    .filter(({ target }) => target.matches('.add') && isFinite(inputNumber.value))
     .map(_ => +inputNumber.value)
 
 const state$ = K.merge([inc$, dec$, input$]).scan((prev, next) => prev + next)
