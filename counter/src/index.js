@@ -6,11 +6,11 @@ const inputNumber = document.querySelector('.input-add')
 
 const inc$ = K.fromEvents(document.body, "click").filter(({ target }) => target.matches('.inc')).map(_ => 1)
 const dec$ = K.fromEvents(document.body, "click").filter(({ target }) => target.matches('.dec')).map(_ => -1)
-const input$ = K.fromEvents(document.body, "click")
+const button$ = K.fromEvents(document.body, "click")
     .filter(({ target }) => target.matches('.add') && isFinite(inputNumber.value))
     .map(_ => +inputNumber.value)
 
-const state$ = K.merge([inc$, dec$, input$]).scan((prev, next) => prev + next)
+const state$ = K.merge([inc$, dec$, button$]).scan((prev, next) => prev + next)
 
 const render = function (state) {
     return `
