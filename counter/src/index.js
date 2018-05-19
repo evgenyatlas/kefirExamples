@@ -2,15 +2,16 @@ import K from 'kefir'
 
 //Dom elem
 const root = document.querySelector('#root')
-const inputNumber = document.querySelector('.input-add')
+const getValueInput = () => +document.querySelector('.input-add').value
 
 const inc$ = K.fromEvents(document.body, "click").filter(({ target }) => target.matches('.inc')).map(_ => 1)
 const dec$ = K.fromEvents(document.body, "click").filter(({ target }) => target.matches('.dec')).map(_ => -1)
-const button$ = K.fromEvents(document.body, "click")
-    .filter(({ target }) => target.matches('.add') && isFinite(inputNumber.value))
-    .map(_ => +inputNumber.value)
+const add$ = K.fromEvents(document.body, "click")
+    .filter(({ target }) => target.matches('.add'))
+    .log()
+    .map(_ => getValueInput())
 
-const state$ = K.merge([inc$, dec$, button$]).scan((prev, next) => prev + next)
+const state$ = K.merge([inc$, dec$, add$]).scan((prev, next) => prev + next)
 
 const render = function (state) {
     return `
